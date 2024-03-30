@@ -1,37 +1,35 @@
-#
-
 Summary:	Qt API to store passwords and other secret data securely
 Summary(pl.UTF-8):	API Qt do bezpiecznego przechowywania haseł i innych tajnych danych
 Name:		Qt5Keychain
-Version:	0.12.0
+Version:	0.14.2
 Release:	1
 License:	Modified BSD License
 Group:		Libraries
 #Source0Download: https://github.com/frankosterfeld/qtkeychain/releases
-Source0:	https://github.com/frankosterfeld/qtkeychain/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	474f172b42017872dd50eec6c9981fed
+Source0:	https://github.com/frankosterfeld/qtkeychain/archive/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	7f75753541784068400d903e0e7a0d55
 URL:		https://github.com/frankosterfeld/qtkeychain
-BuildRequires:	cmake >= 2.8.11
-BuildRequires:	libsecret-devel
-BuildRequires:	libstdc++-devel
-BuildRequires:	rpmbuild(find_lang) >= 1.37
-BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5DBus-devel >= 5
+BuildRequires:	cmake >= 3.16
+BuildRequires:	libsecret-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	rpmbuild(find_lang) >= 1.37
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	qt5-build >= 5
 BuildRequires:	qt5-linguist >= 5
 BuildRequires:	qt5-qmake >= 5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Qt5Keychain a Qt API to store passwords and other secret data securely.
+QtKeychain a Qt API to store passwords and other secret data securely.
 
 How the data is stored depends on the platform:
 - Mac OS X: Passwords are stored in the OS X Keychain.
 - Linux/Unix: If running, GNOME Keyring is used, otherwise qtkeychain
   tries to use KWallet (via D-Bus), if available.
 - Windows: Windows does not provide a service for secure storage.
-  Qt5Keychain uses the Windows API function
+  QtKeychain uses the Windows API function
 
 %description -l pl.UTF-8
 API Qt do bezpiecznego przechowywania haseł i innych tajnych danych.
@@ -42,7 +40,7 @@ Sposób przechowywania danych zależy od platformy:
   w przeciwnym wypadku używany jest KWallet (przez DBus), o ile jest
   dostępny
 - Windows: system nie udostępnia usługi do bezpiecznego przechowywania
-  danych; Qt5Keychain używa funkcji Windows API
+  danych; QtKeychain używa funkcji Windows API
 
 %package devel
 Summary:	Development files for Qt5Keychain
@@ -62,12 +60,9 @@ wykorzystujących bibliotekę Qt5Keychain.
 %setup -q -n qtkeychain-%{version}
 
 %build
-install -d build-qt5
-cd build-qt5
-%cmake .. \
-	-DBUILD_WITH_QT4:BOOL=OFF \
+%cmake -B build-qt5 \
 	-DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules
-%{__make}
+%{__make} -C build-qt5
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -85,9 +80,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f qtkeychain.lang
 %defattr(644,root,root,755)
-%doc COPYING ChangeLog
+%doc COPYING ChangeLog ReadMe.md
 %attr(755,root,root) %{_libdir}/libqt5keychain.so.*.*.*
 %ghost %{_libdir}/libqt5keychain.so.1
+%dir %{_datadir}/qt5keychain
+%dir %{_datadir}/qt5keychain/translations
 
 %files devel
 %defattr(644,root,root,755)
