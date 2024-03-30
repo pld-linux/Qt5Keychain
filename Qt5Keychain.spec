@@ -6,6 +6,8 @@ Release:	1
 License:	Modified BSD License
 Group:		Libraries
 #Source0Download: https://github.com/frankosterfeld/qtkeychain/releases
+# TODO use:
+#Source0:	https://github.com/frankosterfeld/qtkeychain/archive/%{version}/qtkeychain-%{version}.tar.gz
 Source0:	https://github.com/frankosterfeld/qtkeychain/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	7f75753541784068400d903e0e7a0d55
 URL:		https://github.com/frankosterfeld/qtkeychain
@@ -15,11 +17,11 @@ BuildRequires:	cmake >= 3.16
 BuildRequires:	libsecret-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	pkgconfig
-BuildRequires:	rpmbuild(find_lang) >= 1.37
-BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	qt5-build >= 5
 BuildRequires:	qt5-linguist >= 5
 BuildRequires:	qt5-qmake >= 5
+BuildRequires:	rpmbuild(find_lang) >= 1.37
+BuildRequires:	rpmbuild(macros) >= 1.605
 Obsoletes:	QtKeychain-common < 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
