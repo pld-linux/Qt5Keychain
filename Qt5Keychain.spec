@@ -19,6 +19,7 @@ BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	qt5-build >= 5
 BuildRequires:	qt5-linguist >= 5
 BuildRequires:	qt5-qmake >= 5
+Obsoletes:	QtKeychain-common < 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
