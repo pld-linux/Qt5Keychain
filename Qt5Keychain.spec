@@ -14,6 +14,7 @@ BuildRequires:	Qt5DBus-devel >= 5
 BuildRequires:	cmake >= 3.16
 BuildRequires:	libsecret-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(find_lang) >= 1.37
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	qt5-build >= 5
@@ -48,6 +49,7 @@ Summary:	Development files for Qt5Keychain
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki Qt5Keychain
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	Qt5Core-devel >= 5
 
 %description devel
 This package contains the header files for developing applications
