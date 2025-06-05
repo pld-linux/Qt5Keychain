@@ -1,3 +1,7 @@
+#
+# Conditional build:
+%bcond_with	tests	# test suite
+
 Summary:	Qt API to store passwords and other secret data securely
 Summary(pl.UTF-8):	API Qt do bezpiecznego przechowywania haseł i innych tajnych danych
 Name:		Qt5Keychain
@@ -11,6 +15,7 @@ Source0:	https://github.com/frankosterfeld/qtkeychain/archive/%{version}/qtkeych
 URL:		https://github.com/frankosterfeld/qtkeychain
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5DBus-devel >= 5
+%{?with_tests:BuildRequires:	Qt5Test-devel >= 5}
 BuildRequires:	cmake >= 3.16
 BuildRequires:	libsecret-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
@@ -64,7 +69,9 @@ wykorzystujących bibliotekę Qt5Keychain.
 
 %build
 %cmake -B build-qt5 \
+	%{!?with_tests:-DBUILD_TESTING:BOOL=OFF} \
 	-DECM_MKSPECS_INSTALL_DIR=%{_libdir}/qt5/mkspecs/modules
+
 %{__make} -C build-qt5
 
 %install
